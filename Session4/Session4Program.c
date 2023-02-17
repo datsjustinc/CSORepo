@@ -34,8 +34,8 @@ int main(int argc, char* argv[]){
     case 1 : return EXIT_FAILURE;
     case 2 : readFile(argv[1], A, false);
            break;
-    case 3 :
-           break;
+    case 3 : readFile(argv[2], A, true);
+	   break;
     default: return EXIT_FAILURE;
   }
   printArray(A);
@@ -60,9 +60,14 @@ int readFile(char* fname, int A[], int flag){
 
 int insertInOrder(int A[], int value){
   int j=next-1;
+
   while (j>=0 && A[j]>value)
-    {A[j+1] = A[j];j--;}
-  A[j] = value;
+  {
+	A[j+1] = A[j];
+	j--;
+  }
+
+  A[j+1] = value;
   next++;
   return EXIT_SUCCESS;
 } 
