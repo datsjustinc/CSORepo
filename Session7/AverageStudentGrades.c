@@ -18,6 +18,11 @@ and prints the homework average for the student.
 
 /* Declare struct here */
 
+struct Student
+{
+    int* grades;
+    char* name;
+};
 
 /*********************************************
  ** FUNCTION PROTOTYPES
@@ -38,9 +43,26 @@ int main() {
   // Task 4: use malloc and allocate memory to create the array
   // Create array of Ns students with Nh grades each
 
+  struct Student *A = malloc(Ns*sizeof(struct Student));
+
+  for (int i = 0; i < Ns; i++)
+  {
+      A[i].name = malloc(20*sizeof(char));
+      A[i].grades = malloc(Nh*sizeof(int));
+  }
 
   // Task 5: read data into the declared array
   // Read & store student names & grades
+
+  for (int i = 0; i < Ns; i++)
+  {
+      fscanf(IN, "%s", A[i].name);
+
+      for (int j = 0; j < Nh; j++)
+      {
+          fscanf(IN, "%d", &A[i].grades[j]);
+      }
+  }
 
 
   // Get name from user
@@ -50,7 +72,10 @@ int main() {
 
   // Task 6: implement calculating the average of the grades for the student
   // Find student with given name & print his average
-  
+  int index = find(name, A, Ns);
+  printf("Grades: ");
+  printf("%f", average(A[index].grades, Nh));
+  printf("\n");
   
   return 0;
 }
@@ -61,12 +86,32 @@ int main() {
 // Task 2: implement the find() function
 // Returns index of array element whose name
 // data member matches given name.
-int find(char* name, struct Student *A, int N) {
+int find(char* name, struct Student *A, int N){
 
+   for (int i = 0; i < N; i++)
+   {
+       if (strcmp(A[i].name, name))
+       {
+           return i;
+       }
+       else
+       {
+           return -1;
+       }
+   }
 }
 
 // Task 3: implement the average() function
 // Returns the average of the N ints in array A
-double average(int *A, int N) {
+double average(int *A, int N)
+{
+    int avg = 0;
 
+    for (int i = 0; i < N; i++)
+    {
+        avg += *A + i;
+    }
+
+    return avg/N;
 }
+
