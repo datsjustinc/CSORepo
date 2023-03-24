@@ -109,7 +109,7 @@ double average(int *A, int N)
 
     for (int i = 0; i < N; i++)
     {
-        avg += *A + i;
+        avg += *(A + i);
     }
 
     return avg/N;
